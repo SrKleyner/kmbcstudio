@@ -10,6 +10,12 @@
   --color-cocoa: #3a2217;
   --color-crust: #b4532a;
   --color-crust-dark: #8f3f1e;
+
+  /* Forja Training palette */
+  --color-ink: #08080b;
+  --color-ink-soft: #121218;
+  --color-volt: #ff4a1c;
+  --color-volt-light: #ff7a52;
 }
 
 html {

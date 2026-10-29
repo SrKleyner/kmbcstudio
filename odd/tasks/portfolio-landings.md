@@ -31,7 +31,7 @@ The user needs extra income with no capital. Demos let them send ready-made mock
 - [x] T1 Scaffold Astro + Tailwind + Vitest, shared layout, WhatsApp URL helper (TDD), portfolio index. Route: delegated writer (2+ non-trivial files).
 - [x] T2 `/dental` landing. Route: delegated writer.
 - [x] T3 `/pasteleria` landing + cart message builder (TDD). Route: delegated writer.
-- [ ] T4 `/training` landing + quiz recommender (TDD) + lead submit. Route: delegated writer.
+- [x] T4 `/training` landing + quiz recommender (TDD) + lead submit. Route: delegated writer.
 - [ ] T5 README with deploy steps (Cloudflare Pages/Vercel) and Apps Script snippet. Route: delegated writer.
 
 ## Acceptance criteria
@@ -43,7 +43,8 @@ The user needs extra income with no capital. Demos let them send ready-made mock
 ## Progress / Evidence
 - T1 done: commit 590cdf2; RED observed (whatsapp module missing, 'no tests' failure) then GREEN 4/4; `pnpm test` pass, `pnpm build` pass (1 page); route: delegated writer.
 - T2 done: commit 442cf8d; `pnpm test` 4/4 pass, `pnpm build` pass (2 pages); route: delegated writer.
-- T3 done: commit = `feat(pasteleria)` in git log; RED observed (cart module missing) then GREEN 14/14; `pnpm build` pass (3 pages); route: delegated writer.
+- T3 done: commit 1c641b8; RED observed (cart module missing) then GREEN 14/14; `pnpm build` pass (3 pages); route: delegated writer.
+- T4 done: commit = `feat(training)` in git log; RED observed (quiz module missing) then GREEN 22/22; `pnpm build` pass (4 pages); route: delegated writer.
 
 ## Next step
-- T4.
+- T5.
