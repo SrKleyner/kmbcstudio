@@ -3,6 +3,13 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", "Inter", ui-sans-serif, sans-serif;
+
+  /* Masa Madre Pastelería palette */
+  --color-cream: #faf4e8;
+  --color-cream-deep: #f1e6d0;
+  --color-cocoa: #3a2217;
+  --color-crust: #b4532a;
+  --color-crust-dark: #8f3f1e;
 }
 
 html {
