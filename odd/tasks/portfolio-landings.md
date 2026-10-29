@@ -32,7 +32,7 @@ The user needs extra income with no capital. Demos let them send ready-made mock
 - [x] T2 `/dental` landing. Route: delegated writer.
 - [x] T3 `/pasteleria` landing + cart message builder (TDD). Route: delegated writer.
 - [x] T4 `/training` landing + quiz recommender (TDD) + lead submit. Route: delegated writer.
-- [ ] T5 README with deploy steps (Cloudflare Pages/Vercel) and Apps Script snippet. Route: delegated writer.
+- [x] T5 README with deploy steps (Cloudflare Pages/Vercel) and Apps Script snippet. Route: delegated writer.
 
 ## Acceptance criteria
 - `pnpm test` green, `pnpm build` succeeds, each route renders and works on mobile width.
@@ -44,7 +44,8 @@ The user needs extra income with no capital. Demos let them send ready-made mock
 - T1 done: commit 590cdf2; RED observed (whatsapp module missing, 'no tests' failure) then GREEN 4/4; `pnpm test` pass, `pnpm build` pass (1 page); route: delegated writer.
 - T2 done: commit 442cf8d; `pnpm test` 4/4 pass, `pnpm build` pass (2 pages); route: delegated writer.
 - T3 done: commit 1c641b8; RED observed (cart module missing) then GREEN 14/14; `pnpm build` pass (3 pages); route: delegated writer.
-- T4 done: commit = `feat(training)` in git log; RED observed (quiz module missing) then GREEN 22/22; `pnpm build` pass (4 pages); route: delegated writer.
+- T4 done: commit f7518e0; RED observed (quiz module missing) then GREEN 22/22; `pnpm build` pass (4 pages); route: delegated writer.
+- T5 done: commit = `docs: add README` in git log; `pnpm test` 22/22 pass, `pnpm build` pass (4 pages); route: delegated writer.
 
 ## Next step
-- T5.
+- Review demos visually, set WHATSAPP_NUMBER/DEVELOPER in src/config.ts; push/deploy are user decisions.
