@@ -1,0 +1,153 @@
+---
+import Base from '../layouts/Base.astro';
+import { DEMOS, DEVELOPER, SERVICES, WHATSAPP_NUMBER } from '../config';
+import { buildWhatsAppUrl } from '../lib/whatsapp';
+
+const contactUrl = buildWhatsAppUrl(
+  WHATSAPP_NUMBER,
+  'Hola, vi tu portafolio y quiero una página web para mi negocio.',
+);
+
+const steps = [
+  { n: '01', title: 'Conversamos', text: 'Me cuentas de tu negocio por WhatsApp y definimos objetivo, estilo y contenido.' },
+  { n: '02', title: 'Te muestro un borrador', text: 'En pocos días recibes una propuesta visual real para aprobar o ajustar.' },
+  { n: '03', title: 'Publicamos', text: 'Tu página sale online con dominio propio, rápida y lista para recibir clientes.' },
+  { n: '04', title: 'Te acompaño', text: 'Soporte y mejoras continuas para que tu web siga trayendo resultados.' },
+];
+
+const icons: Record<string, string> = {
+  rocket: 'M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1ZM12 15l-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2ZM9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5',
+  chat: 'M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l1.9-5.5A8.4 8.4 0 1 1 21 11.5Z',
+  wrench: 'M14.7 6.3a4 4 0 0 0 5 5L22 13.6a2 2 0 0 1 0 2.8l-5.6 5.6a2 2 0 0 1-2.8 0L2 10.4a2 2 0 0 1 0-2.8L7.6 2a2 2 0 0 1 2.8 0l4.3 4.3Z',
+};
+---
+
+<Base
+  title={`${DEVELOPER.name} | ${DEVELOPER.tagline}`}
+  description="Diseño y desarrollo de landing pages y automatización por WhatsApp para negocios. Mira demos reales y pide la tuya."
+  bodyClass="bg-[#0b0b0f] text-zinc-100 font-sans antialiased selection:bg-lime-300 selection:text-black"
+  themeColor="#0b0b0f"
+>
+  <header class="absolute inset-x-0 top-0 z-20">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-6" aria-label="Principal">
+      <a href="/" class="font-display text-lg font-bold tracking-tight">{DEVELOPER.name}<span class="text-lime-300">.</span></a>
+      <div class="flex items-center gap-6 text-sm text-zinc-300">
+        <a href="#demos" class="hidden hover:text-white sm:inline">Demos</a>
+        <a href="#servicios" class="hidden hover:text-white sm:inline">Servicios</a>
+        <a href={contactUrl} class="rounded-full border border-white/20 px-4 py-2 font-medium text-white transition hover:border-lime-300 hover:text-lime-300">Escríbeme</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="relative isolate overflow-hidden px-5 pb-24 pt-40 sm:pt-52">
+      <div class="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[620px] w-[900px] max-w-[160vw] -translate-x-1/2 rounded-full bg-lime-300/20 blur-[140px]" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute inset-0 -z-10 opacity-[0.07] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" aria-hidden="true"></div>
+      <div class="mx-auto max-w-6xl" data-hero>
+        <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-lime-300">
+          <span class="h-1.5 w-1.5 rounded-full bg-lime-300"></span>{DEVELOPER.role}
+        </p>
+        <h1 class="font-display text-[2.6rem] font-bold leading-[1.02] tracking-tight sm:text-7xl lg:text-8xl">
+          Landings que convierten <span class="bg-gradient-to-r from-lime-300 to-emerald-400 bg-clip-text text-transparent">visitas en clientes</span>
+        </h1>
+        <p class="mt-8 max-w-2xl text-lg leading-relaxed text-zinc-400 sm:text-xl">
+          Diseño páginas web que se ven profesionales, cargan rápido y envían a tus clientes directo a tu WhatsApp. Sin plantillas genéricas: hechas para tu negocio.
+        </p>
+        <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+          <a href="#demos" class="inline-flex items-center justify-center rounded-full bg-lime-300 px-8 py-4 font-semibold text-black transition hover:bg-lime-200">Ver demos en vivo</a>
+          <a href={contactUrl} class="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-4 font-semibold text-white transition hover:border-lime-300 hover:text-lime-300">Pedir mi página por WhatsApp</a>
+        </div>
+        <dl class="mt-16 grid max-w-xl grid-cols-3 gap-6 border-t border-white/10 pt-8">
+          <div><dt class="text-xs uppercase tracking-wider text-zinc-500">Entrega</dt><dd class="font-display mt-1 text-2xl font-semibold">5–7 días</dd></div>
+          <div><dt class="text-xs uppercase tracking-wider text-zinc-500">Diseño</dt><dd class="font-display mt-1 text-2xl font-semibold">A medida</dd></div>
+          <div><dt class="text-xs uppercase tracking-wider text-zinc-500">Soporte</dt><dd class="font-display mt-1 text-2xl font-semibold">Incluido</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="demos" class="px-5 py-24 sm:py-32">
+      <div class="mx-auto max-w-6xl">
+        <div data-reveal class="max-w-2xl">
+          <p class="text-sm font-medium uppercase tracking-[0.18em] text-lime-300">Portafolio</p>
+          <h2 class="font-display mt-4 text-4xl font-bold tracking-tight sm:text-5xl">Tres ideas, tres rubros</h2>
+          <p class="mt-5 text-lg text-zinc-400">Demos interactivas de marcas ficticias. Ábrelas desde tu celular y mira cómo podría verse la tuya.</p>
+        </div>
+        <div class="mt-14 grid gap-6 md:grid-cols-3" data-reveal-group>
+          {DEMOS.map((demo) => (
+            <a href={`/${demo.slug}`} class="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] transition duration-500 hover:-translate-y-1 hover:border-lime-300/50">
+              <div class="aspect-[4/3] overflow-hidden">
+                <img src={demo.image} alt={demo.alt} width="900" height="675" loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <p class="text-xs uppercase tracking-[0.16em] text-lime-300">{demo.niche}</p>
+                <h3 class="font-display mt-2 text-2xl font-semibold">{demo.name}</h3>
+                <p class="mt-3 flex-1 text-zinc-400">{demo.description}</p>
+                <span class="mt-6 inline-flex items-center gap-2 font-medium text-white">Ver demo <span aria-hidden="true" class="transition group-hover:translate-x-1">→</span></span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios" class="border-y border-white/10 bg-white/[0.02] px-5 py-24 sm:py-32">
+      <div class="mx-auto max-w-6xl">
+        <div data-reveal class="max-w-2xl">
+          <p class="text-sm font-medium uppercase tracking-[0.18em] text-lime-300">Servicios</p>
+          <h2 class="font-display mt-4 text-4xl font-bold tracking-tight sm:text-5xl">Todo lo que tu negocio necesita para vender online</h2>
+        </div>
+        <div class="mt-14 grid gap-6 md:grid-cols-3" data-reveal-group>
+          {SERVICES.map((s) => (
+            <article class="rounded-3xl border border-white/10 bg-[#101015] p-8">
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-lime-300/10 text-lime-300">
+                <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icons[s.icon]} /></svg>
+              </span>
+              <h3 class="font-display mt-6 text-2xl font-semibold">{s.title}</h3>
+              <p class="mt-3 text-zinc-400">{s.description}</p>
+              <p class="mt-8 text-sm text-zinc-500">desde</p>
+              <p class="font-display text-4xl font-bold">US$ {s.from}<span class="text-base font-medium text-zinc-500">{s.title === 'Mantenimiento' ? ' /mes' : ''}</span></p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 py-24 sm:py-32">
+      <div class="mx-auto max-w-6xl">
+        <div data-reveal class="max-w-2xl">
+          <p class="text-sm font-medium uppercase tracking-[0.18em] text-lime-300">Proceso</p>
+          <h2 class="font-display mt-4 text-4xl font-bold tracking-tight sm:text-5xl">Simple, rápido y sin sorpresas</h2>
+        </div>
+        <ol class="mt-14 grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4" data-reveal-group>
+          {steps.map((step) => (
+            <li class="bg-[#0b0b0f] p-8">
+              <span class="font-display text-5xl font-bold text-lime-300/80">{step.n}</span>
+              <h3 class="font-display mt-6 text-xl font-semibold">{step.title}</h3>
+              <p class="mt-3 text-zinc-400">{step.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="px-5 pb-24 sm:pb-32">
+      <div data-reveal class="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-lime-300/30 bg-gradient-to-br from-lime-300/15 via-transparent to-emerald-400/10 p-8 sm:p-14">
+        <div class="grid items-center gap-10 md:grid-cols-2">
+          <div>
+            <h2 class="font-display text-4xl font-bold tracking-tight sm:text-5xl">¿Hablamos de tu proyecto?</h2>
+            <p class="mt-5 text-lg text-zinc-300">Cuéntame qué vendes y te preparo una propuesta sin compromiso.</p>
+            <a href={contactUrl} class="mt-8 inline-flex items-center justify-center rounded-full bg-lime-300 px-8 py-4 font-semibold text-black transition hover:bg-lime-200">Escribir por WhatsApp</a>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-black/30 p-6">
+            <h3 class="font-display text-xl font-semibold">Pagos simples y seguros</h3>
+            <p class="mt-3 text-zinc-300">Aceptamos <strong class="text-white">USDT</strong> y <strong class="text-white">Binance Pay</strong>, sin comisiones bancarias ni límites de país. Trabajo con 50% al iniciar y 50% al entregar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 px-5 py-10 text-center text-sm text-zinc-500">
+    © {new Date().getFullYear()} {DEVELOPER.name}. Las marcas de las demos son ficticias.
+  </footer>
+</Base>

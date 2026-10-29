@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Google Fonts stylesheet URL for the page's typefaces. */
+  fontsHref?: string;
+  /** Absolute URL of the social preview image. */
+  image?: string;
+  /** Classes applied to <body> (theme colors, base font). */
+  bodyClass?: string;
+  themeColor?: string;
+}
+
+const {
+  title,
+  description,
+  fontsHref = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap',
+  image,
+  bodyClass = 'bg-white text-slate-900 font-sans antialiased',
+  themeColor = '#ffffff',
+} = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content={themeColor} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="es_LA" />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="stylesheet" href={fontsHref} />
+  </head>
+  <body class={bodyClass}>
+    <slot />
+    <script>
+      import { initReveal } from '../scripts/reveal';
+      initReveal();
+    </script>
+  </body>
+</html>
