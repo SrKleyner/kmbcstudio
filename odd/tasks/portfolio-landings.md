@@ -45,7 +45,7 @@ The user needs extra income with no capital. Demos let them send ready-made mock
 - T2 done: commit 442cf8d; `pnpm test` 4/4 pass, `pnpm build` pass (2 pages); route: delegated writer.
 - T3 done: commit 1c641b8; RED observed (cart module missing) then GREEN 14/14; `pnpm build` pass (3 pages); route: delegated writer.
 - T4 done: commit f7518e0; RED observed (quiz module missing) then GREEN 22/22; `pnpm build` pass (4 pages); route: delegated writer.
-- T5 done: commit = `docs: add README` in git log; `pnpm test` 22/22 pass, `pnpm build` pass (4 pages); route: delegated writer.
+- T5 done: commit a8d73e9; `pnpm test` 22/22 pass, `pnpm build` pass (4 pages); route: delegated writer.
 
 ## Next step
-- Review demos visually, set WHATSAPP_NUMBER/DEVELOPER in src/config.ts; push/deploy are user decisions.
+- Pending check: manual browser test of cart, quiz, slider and 360px width (not yet observed). Review demos visually, set WHATSAPP_NUMBER/DEVELOPER in src/config.ts; push/deploy are user decisions.
