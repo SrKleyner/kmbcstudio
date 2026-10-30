@@ -26,3 +26,6 @@ pnpm-debug.log*
 # vitest / misc
 coverage/
 .vscode/
+
+# impeccable engine binary (downloaded on first run by the launcher)
+.claude/skills/impeccable/scripts/bin/

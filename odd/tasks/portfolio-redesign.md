@@ -32,6 +32,10 @@ The current index is a centered, narrow, plain layout that does not sell premium
 - [x] T3 `/servicios` page: Servicios y precios → Proceso → Hablemos de tu negocio, full-bleed with parallax and horizontal/vertical motion. Route: delegated writer.
 - [x] T4 Visual verification screenshots at 1440px and 390px for `/` and `/servicios`; fix overflow issues. Route: delegated writer.
 
+- [ ] T5 Install impeccable design skill (project scope, claude provider, no hooks; engine binary gitignored). Route: inline.
+- [ ] T6 `/servicios` scroll motion + typography: section headlines must be fully readable at rest (no clipped "SERVICIOS Y P"), scroll-driven horizontal motion must be scrubbed smoothly and settle at a defined aligned end state, clear section boundaries/alignment between sections, contact section without overlapping outline text clutter. Apply impeccable polish/layout/typeset/animate criteria. Route: delegated writer.
+- [ ] T7 Same motion/typography audit for `/` (home) with impeccable criteria; keep the approved structure (full-bleed, name readable, slider, color shift, buttons). Route: delegated writer.
+
 ## Acceptance criteria
 - `pnpm test` and `pnpm build` pass; no horizontal page scroll at 390px; images load on first visit; slider loops infinitely in both directions; reduced-motion disables animations.
 
