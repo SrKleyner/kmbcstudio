@@ -4,7 +4,7 @@
  */
 
 /** International format, digits only (country code + number). */
-export const WHATSAPP_NUMBER = '56900000000';
+export const WHATSAPP_NUMBER = '584148806414';
 
 /** Google Apps Script web app URL that receives leads (see README). Empty = WhatsApp fallback. */
 export const LEAD_ENDPOINT = '';

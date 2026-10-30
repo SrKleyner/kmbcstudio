@@ -60,20 +60,29 @@ body {
   color: transparent;
   -webkit-text-stroke: 1.5px rgb(var(--fg) / 0.16);
 }
+/* The track starts below the wordmark so the name always reads in full.
+   Cards are sized from the free height between the wordmark and the bottom controls. */
+.home {
+  --word-top: 12vh;
+  --word-h: calc(22vw * 0.82 * 2 + 22vw * 0.12);
+  --track-top: calc(var(--word-top) + var(--word-h) + 2vh + 20px);
+  --track-bottom: 104px;
+}
+@media (min-width: 768px) {
+  .home {
+    --word-h: calc(11.2vw * 0.82 + 11.2vw * 0.06);
+    --track-bottom: 124px;
+  }
+}
 .home-track {
   position: absolute;
   inset: 0;
-  top: 33%;
-  bottom: 12%;
-}
-@media (min-width: 768px) {
-  .home-track {
-    top: 20%;
-    bottom: 14%;
-  }
+  top: var(--track-top);
+  bottom: var(--track-bottom);
 }
 .home-slide {
-  --card-w: 78vw;
+  /* 8:5 card + ~3.5rem caption must fit the track height; 1.6 = 8/5. */
+  --card-w: min(78vw, calc((100dvh - var(--track-top) - var(--track-bottom) - 3.5rem) * 1.6));
   position: absolute;
   left: 50%;
   top: 50%;
@@ -87,7 +96,7 @@ body {
 }
 @media (min-width: 768px) {
   .home-slide {
-    --card-w: 47vw;
+    --card-w: min(47vw, calc((100dvh - var(--track-top) - var(--track-bottom) - 3.5rem) * 1.6));
   }
 }
 [data-ready] .home-slide {
