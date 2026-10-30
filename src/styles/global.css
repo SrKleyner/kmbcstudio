@@ -48,30 +48,25 @@ body {
 .home {
   perspective: 1400px;
 }
-.home-word {
-  font-size: 22vw;
-}
-@media (min-width: 768px) {
-  .home-word {
-    font-size: 11.2vw;
-  }
-}
-.home-marquee span {
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgb(var(--fg) / 0.16);
-}
-/* The track starts below the wordmark so the name always reads in full.
-   Cards are sized from the free height between the wordmark and the bottom controls. */
+/* The headline (the offer) sits above the slider. Its size is capped by width and by
+   height so short laptops keep room for the cards; --word-h mirrors its line boxes. */
 .home {
-  --word-top: 12vh;
-  --word-h: calc(22vw * 0.82 * 2 + 22vw * 0.12);
-  --track-top: calc(var(--word-top) + var(--word-h) + 2vh + 20px);
+  --word-top: max(6.25rem, 11vh);
+  --word-fs: min(14vw, 9vh);
+  --word-lines: 4;
+  --word-h: calc(var(--word-fs) * 0.95 * var(--word-lines));
+  --track-top: calc(var(--word-top) + var(--word-h) + 2vh + 12px);
   --track-bottom: 104px;
+}
+.home-word {
+  font-size: var(--word-fs);
+  line-height: 0.95;
 }
 @media (min-width: 768px) {
   .home {
-    --word-h: calc(11.2vw * 0.82 + 11.2vw * 0.06);
-    --track-bottom: 124px;
+    --word-fs: min(7.5vw, 12vh);
+    --word-lines: 2;
+    --track-bottom: 100px;
   }
 }
 .home-track {
@@ -167,7 +162,7 @@ body {
 }
 .t-h2 {
   font-size: clamp(2.2rem, min(8vw, 12vh), 9rem); /* also capped by height: it lives inside a pinned viewport */
-  line-height: 0.9;
+  line-height: 0.95;
   letter-spacing: -0.04em;
 }
 .t-row {
