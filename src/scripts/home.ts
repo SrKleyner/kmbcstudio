@@ -289,7 +289,7 @@ export function initHome(): void {
     const onMove = (e: PointerEvent) => {
       const nx = e.clientX / window.innerWidth - 0.5;
       const ny = e.clientY / window.innerHeight - 0.5;
-      gsap.to('.home-word', { x: nx * -24, y: ny * -16, duration: 1.2, ease: 'power3.out', overwrite: 'auto' });
+      gsap.to('.home-word', { x: nx * -10, y: ny * -8, duration: 1.2, ease: 'power3.out', overwrite: 'auto' });
       gsap.to('[data-marquee]', { y: ny * 30, duration: 1.6, ease: 'power3.out', overwrite: 'auto' });
     };
     window.addEventListener('pointermove', onMove);
