@@ -1,0 +1,147 @@
+---
+import Base from '../layouts/Base.astro';
+import { DEVELOPER, SERVICES, WHATSAPP_NUMBER } from '../config';
+import { buildWhatsAppUrl } from '../lib/whatsapp';
+
+const contactUrl = buildWhatsAppUrl(
+  WHATSAPP_NUMBER,
+  'Hola, vi tu portafolio y quiero cotizar una página web para mi negocio.',
+);
+
+const steps = [
+  { n: '01', title: 'Conversamos', text: 'Me cuentas de tu negocio por WhatsApp y definimos objetivo, estilo y contenido.' },
+  { n: '02', title: 'Te muestro un borrador', text: 'En pocos días recibes una propuesta visual real para aprobar o ajustar.' },
+  { n: '03', title: 'Publicamos', text: 'Tu página sale online con dominio propio, rápida y lista para recibir clientes.' },
+  { n: '04', title: 'Te acompaño', text: 'Soporte y mejoras continuas para que tu web siga trayendo resultados.' },
+];
+
+const pad = (n: number) => String(n + 1).padStart(2, '0');
+---
+
+<Base
+  title={`Servicios y precios | ${DEVELOPER.name}`}
+  description="Landing pages, automatización por WhatsApp y mantenimiento con precios claros. Conoce el proceso y pide tu propuesta."
+  bodyClass="bg-[#0b0b10] text-white font-sans antialiased selection:bg-lime-300 selection:text-black"
+  themeColor="#0b0b10"
+>
+  <header class="fixed inset-x-0 top-0 z-50 flex items-center justify-between p-[clamp(16px,3vw,48px)] mix-blend-difference">
+    <a href="/" class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-white">
+      <span aria-hidden="true">←</span> Portafolio
+    </a>
+    <a href={contactUrl} class="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:scale-105">
+      Escríbeme <span aria-hidden="true">↗</span>
+    </a>
+  </header>
+
+  <main>
+    <!-- 1. Servicios y precios -->
+    <section id="servicios" class="relative overflow-hidden pb-[clamp(64px,10vw,160px)] pt-[clamp(96px,14vw,200px)]" aria-labelledby="servicios-title">
+      <p class="px-[clamp(16px,3vw,48px)] text-xs font-medium uppercase tracking-[0.2em] text-lime-300">01 — Servicios</p>
+      <h2 id="servicios-title" class="font-display mt-4 whitespace-nowrap text-[17vw] font-bold uppercase leading-[0.85] tracking-[-0.04em]" data-sweep="-14" aria-label="Servicios y precios">
+        <span class="inline-block" aria-hidden="true">Servicios y precios&nbsp;·&nbsp;Servicios y precios</span>
+      </h2>
+
+      <ol class="mt-[clamp(40px,7vw,110px)] border-t border-white/15">
+        {SERVICES.map((s, i) => (
+          <li class="svc group relative overflow-hidden border-b border-white/15" data-row>
+            <span class="font-display pointer-events-none absolute -right-[2vw] top-1/2 -translate-y-1/2 text-[34vw] font-bold leading-none text-transparent [-webkit-text-stroke:1px_rgb(255_255_255/0.07)] md:text-[24vw]" data-drift="60" aria-hidden="true">{pad(i)}</span>
+            <div class="relative grid items-end gap-6 px-[clamp(16px,3vw,48px)] py-[clamp(32px,5vw,80px)] md:grid-cols-[1fr_minmax(0,1.1fr)_auto] md:gap-[3vw]" data-row-inner={i % 2 === 0 ? '-1' : '1'}>
+              <div>
+                <p class="text-xs font-medium uppercase tracking-[0.2em] text-white/50">{pad(i)}</p>
+                <h3 class="font-display mt-2 text-[clamp(2rem,6.2vw,7rem)] font-bold uppercase leading-[0.92] tracking-[-0.03em] transition-colors duration-300 group-hover:text-lime-300">{s.title}</h3>
+              </div>
+              <p class="max-w-xl text-base leading-relaxed text-white/70 md:text-lg">{s.description}</p>
+              <p class="md:text-right">
+                <span class="block text-xs uppercase tracking-[0.2em] text-white/50">desde</span>
+                <span class="font-display block text-[clamp(2.5rem,5.4vw,6rem)] font-bold leading-none tracking-[-0.03em]">US$ {s.from}<span class="text-[0.3em] font-medium tracking-normal text-white/50">{s.title === 'Mantenimiento' ? ' /mes' : ''}</span></span>
+              </p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p class="px-[clamp(16px,3vw,48px)] pt-6 text-sm text-white/50">Precios en dólares. Cada propuesta se ajusta a tu negocio, sin compromiso.</p>
+    </section>
+
+    <!-- Ticker -->
+    <div class="overflow-hidden border-y border-white/15 bg-lime-300 py-4 text-black" aria-hidden="true">
+      <div class="flex w-max whitespace-nowrap" data-ticker>
+        {[0, 1].map(() => (
+          <span class="font-display pr-8 text-2xl font-bold uppercase tracking-[-0.02em] sm:text-4xl">
+            Landings · WhatsApp · Reservas · Pedidos · Mantenimiento · Resultados ·&nbsp;
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- 2. Proceso (pinned horizontal scroll) -->
+    <section id="proceso" class="process relative overflow-hidden" aria-labelledby="proceso-title" data-process>
+      <div class="flex min-h-dvh flex-col justify-center gap-[clamp(24px,5vw,64px)] py-[clamp(72px,9vw,120px)]" data-process-pin>
+        <div class="flex items-end justify-between gap-6 px-[clamp(16px,3vw,48px)]">
+          <div>
+            <p class="text-xs font-medium uppercase tracking-[0.2em] text-lime-300">02 — Proceso</p>
+            <h2 id="proceso-title" class="font-display mt-3 text-[clamp(2.4rem,9vw,10rem)] font-bold uppercase leading-[0.88] tracking-[-0.04em]">Simple, rápido<br />y sin sorpresas</h2>
+          </div>
+          <p class="hidden pb-3 text-sm uppercase tracking-[0.2em] text-white/50 md:block" aria-hidden="true">Desliza →</p>
+        </div>
+
+        <div class="process-track flex gap-[clamp(12px,2vw,32px)] px-[clamp(16px,3vw,48px)]" data-process-track>
+          {steps.map((step) => (
+            <article class="process-card relative flex min-h-[clamp(260px,38vh,420px)] shrink-0 flex-col justify-between overflow-hidden rounded-[clamp(16px,2vw,32px)] border border-white/15 bg-white/[0.04] p-[clamp(20px,2.4vw,40px)]">
+              <span class="font-display text-[clamp(4rem,10vw,11rem)] font-bold leading-none tracking-[-0.05em] text-lime-300" data-step-num>{step.n}</span>
+              <div>
+                <h3 class="font-display text-[clamp(1.5rem,2.6vw,2.8rem)] font-bold uppercase leading-none tracking-[-0.02em]">{step.title}</h3>
+                <p class="mt-3 max-w-md text-base leading-relaxed text-white/70">{step.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="mx-[clamp(16px,3vw,48px)] h-px bg-white/15" aria-hidden="true">
+          <div class="h-full origin-left scale-x-0 bg-lime-300" data-progress></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Hablemos de tu negocio -->
+    <section id="contacto" class="relative overflow-hidden bg-lime-300 text-black" aria-labelledby="contacto-title">
+      <div class="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 select-none" aria-hidden="true">
+        <div class="flex w-max whitespace-nowrap" data-ticker-reverse>
+          {[0, 1].map(() => (
+            <span class="font-display pr-[4vw] text-[28vh] font-bold uppercase leading-none text-transparent [-webkit-text-stroke:1.5px_rgb(0_0_0/0.14)]">Cuéntame tu idea · Cuéntame tu idea ·&nbsp;</span>
+          ))}
+        </div>
+      </div>
+      <div class="relative flex min-h-dvh flex-col justify-between gap-12 px-[clamp(16px,3vw,48px)] pb-8 pt-[clamp(96px,12vw,160px)]">
+        <div>
+          <p class="text-xs font-medium uppercase tracking-[0.2em]">03 — Contacto</p>
+          <h2 id="contacto-title" class="font-display mt-4 text-[clamp(3rem,13.5vw,17rem)] font-bold uppercase leading-[0.84] tracking-[-0.045em]">
+            <span class="block" data-sweep="9">Hablemos</span>
+            <span class="block" data-sweep="-9">de tu negocio</span>
+          </h2>
+        </div>
+
+        <div class="grid items-end gap-10 md:grid-cols-[1fr_auto]">
+          <div class="max-w-xl">
+            <p class="text-lg leading-relaxed md:text-xl">Cuéntame qué vendes y te preparo una propuesta sin compromiso. Aceptamos <strong>USDT</strong> y <strong>Binance Pay</strong>: 50% al iniciar y 50% al entregar.</p>
+            <a href="/" class="mt-6 inline-flex items-center gap-2 border-b-2 border-black pb-1 text-sm font-semibold uppercase tracking-[0.16em] transition hover:gap-4">
+              <span aria-hidden="true">←</span> Volver al portafolio
+            </a>
+          </div>
+          <a href={contactUrl} data-magnet class="font-display inline-flex items-center justify-center gap-3 rounded-full bg-black px-[clamp(28px,4vw,64px)] py-[clamp(20px,2.6vw,40px)] text-[clamp(1.25rem,2.4vw,2.6rem)] font-bold uppercase tracking-[-0.02em] text-lime-300 transition-colors hover:bg-white hover:text-black">
+            Escribir por WhatsApp <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <footer class="flex flex-wrap items-center justify-between gap-2 border-t border-black/20 pt-5 text-sm">
+          <span>© {new Date().getFullYear()} {DEVELOPER.name} · kmbcstudio.com</span>
+          <span>Las marcas de las demos son ficticias.</span>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    import { initServicios } from '../scripts/servicios';
+    initServicios();
+  </script>
+</Base>

@@ -127,3 +127,22 @@ body {
   background-position: top center;
   pointer-events: none;
 }
+
+/* ---------- Servicios ---------- */
+.process-card {
+  width: 78vw;
+}
+@media (min-width: 768px) {
+  .process-card {
+    width: 38vw;
+  }
+}
+/* Without the pinned animation (reduced motion / no JS) the track scrolls natively. */
+.process-track {
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+.process.is-pinned .process-track {
+  overflow: visible;
+}
