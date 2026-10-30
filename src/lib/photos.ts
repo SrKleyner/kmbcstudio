@@ -25,3 +25,14 @@ export function photo(id: string): ImageMetadata {
 export function ogImage(id: string, site: URL | undefined): string | undefined {
   return site ? new URL(photo(id).src, site).href : undefined;
 }
+
+const previewFiles = import.meta.glob<{ default: ImageMetadata }>('../assets/previews/*.{jpg,png,webp}', {
+  eager: true,
+});
+
+/** Screenshot of a demo landing (src/assets/previews/<slug>.jpg). */
+export function preview(slug: string): ImageMetadata {
+  const entry = Object.entries(previewFiles).find(([path]) => path.endsWith(`/${slug}.jpg`) || path.endsWith(`/${slug}.png`) || path.endsWith(`/${slug}.webp`));
+  if (!entry) throw new Error(`Missing preview "${slug}" in src/assets/previews`);
+  return entry[1].default;
+}

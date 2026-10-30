@@ -43,6 +43,8 @@ export const SERVICES = [
 export const DEMOS = [
   {
     slug: 'dental',
+    /** Page background while this demo is active on the home slider. */
+    bg: '#c8efe6',
     name: 'Sonríe Clínica Dental',
     niche: 'Clínicas y consultorios',
     description: 'Reservas por WhatsApp, comparador antes/después y tratamientos con precios claros.',
@@ -52,6 +54,8 @@ export const DEMOS = [
   },
   {
     slug: 'pasteleria',
+    /** Page background while this demo is active on the home slider. */
+    bg: '#3a2217',
     name: 'Masa Madre Pastelería',
     niche: 'Pastelerías y comida',
     description: 'Menú con carrito y pedido completo enviado por WhatsApp, más tortas personalizadas.',
@@ -61,6 +65,8 @@ export const DEMOS = [
   },
   {
     slug: 'training',
+    /** Page background while this demo is active on the home slider. */
+    bg: '#ff4a1c',
     name: 'Forja Training',
     niche: 'Entrenadores y gimnasios',
     description: 'Quiz que recomienda un plan y captura el contacto del cliente automáticamente.',

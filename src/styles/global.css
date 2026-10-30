@@ -43,3 +43,87 @@ body {
   outline: 2px solid currentColor;
   outline-offset: 3px;
 }
+
+/* ---------- Home slider ---------- */
+.home {
+  perspective: 1400px;
+}
+.home-word {
+  font-size: 22vw;
+}
+@media (min-width: 768px) {
+  .home-word {
+    font-size: 11.2vw;
+  }
+}
+.home-marquee span {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(var(--fg) / 0.16);
+}
+.home-track {
+  position: absolute;
+  inset: 0;
+  top: 33%;
+  bottom: 12%;
+}
+@media (min-width: 768px) {
+  .home-track {
+    top: 20%;
+    bottom: 14%;
+  }
+}
+.home-slide {
+  --card-w: 78vw;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--card-w);
+  margin-left: calc(var(--card-w) / -2);
+  transform: translate3d(0, -50%, 0);
+  visibility: hidden;
+  cursor: grab;
+  will-change: transform;
+  -webkit-user-drag: none;
+}
+@media (min-width: 768px) {
+  .home-slide {
+    --card-w: 47vw;
+  }
+}
+[data-ready] .home-slide {
+  visibility: visible;
+}
+.home-stage.is-dragging .home-slide {
+  cursor: grabbing;
+}
+.home-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.home-card img {
+  transform: scale(1.18);
+  will-change: transform;
+}
+.home-btn {
+  display: inline-flex;
+  height: 3rem;
+  width: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid currentColor;
+  font-size: 1.125rem;
+  transition: background-color 0.25s, color 0.25s, transform 0.25s;
+}
+.home-btn:hover {
+  background: rgb(var(--fg));
+  color: rgb(var(--bg));
+  transform: scale(1.08);
+}
+.home-overlay {
+  position: fixed;
+  z-index: 9998;
+  background-size: cover;
+  background-position: top center;
+  pointer-events: none;
+}

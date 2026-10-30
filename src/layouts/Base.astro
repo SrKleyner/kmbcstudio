@@ -11,6 +11,10 @@ interface Props {
   /** Classes applied to <body> (theme colors, base font). */
   bodyClass?: string;
   themeColor?: string;
+  /** Inline style for <body> (e.g. CSS variables). */
+  bodyStyle?: string;
+  /** Shows the small "← Portafolio" control (used by the demo landings). */
+  backLink?: boolean;
 }
 
 const {
@@ -20,6 +24,8 @@ const {
   image,
   bodyClass = 'bg-white text-slate-900 font-sans antialiased',
   themeColor = '#ffffff',
+  bodyStyle,
+  backLink = false,
 } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
@@ -45,8 +51,40 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href={fontsHref} />
   </head>
-  <body class={bodyClass}>
+  <body class={bodyClass} style={bodyStyle}>
+    <script is:inline>
+      /* Continues the home -> demo expanding transition: fade out the overlay that mirrors the clicked preview. */
+      (function () {
+        try {
+          var raw = sessionStorage.getItem('kmbc-intro');
+          if (!raw) return;
+          sessionStorage.removeItem('kmbc-intro');
+          var data = JSON.parse(raw);
+          if (!data.src || Date.now() - data.ts > 8000) return;
+          if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var o = document.createElement('div');
+          o.setAttribute('aria-hidden', 'true');
+          o.style.cssText = 'position:fixed;inset:0;z-index:9999;pointer-events:none;background:#000 center/cover no-repeat url("' + data.src + '");transition:opacity .7s ease .15s';
+          document.body.appendChild(o);
+          var done = function () {
+            o.style.opacity = '0';
+            setTimeout(function () { o.remove(); }, 1000);
+          };
+          if (document.readyState === 'complete') requestAnimationFrame(done);
+          else addEventListener('load', function () { requestAnimationFrame(done); });
+          setTimeout(done, 3000);
+        } catch (e) {}
+      })();
+    </script>
     <slot />
+    {backLink && (
+      <a
+        href="/"
+        class="fixed bottom-24 left-4 z-50 inline-flex items-center gap-2 rounded-full bg-black/70 px-4 py-2 text-sm font-medium text-white shadow-lg shadow-black/20 ring-1 ring-white/20 backdrop-blur transition hover:bg-black md:bottom-5"
+      >
+        <span aria-hidden="true">←</span> Portafolio
+      </a>
+    )}
     <script>
       import { initReveal } from '../scripts/reveal';
       initReveal();
