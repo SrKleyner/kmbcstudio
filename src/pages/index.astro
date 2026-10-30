@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import { photo } from '../lib/photos';
 import Base from '../layouts/Base.astro';
 import { DEMOS, DEVELOPER, SERVICES, WHATSAPP_NUMBER } from '../config';
 import { buildWhatsAppUrl } from '../lib/whatsapp';
@@ -76,7 +78,7 @@ const icons: Record<string, string> = {
           {DEMOS.map((demo) => (
             <a href={`/${demo.slug}`} class="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] transition duration-500 hover:-translate-y-1 hover:border-lime-300/50">
               <div class="aspect-[4/3] overflow-hidden">
-                <img src={demo.image} alt={demo.alt} width="900" height="675" loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                <Image src={photo(demo.image)} alt={demo.alt} width={900} height={675} class="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
               </div>
               <div class="flex flex-1 flex-col p-6">
                 <p class="text-xs uppercase tracking-[0.16em] text-lime-300">{demo.niche}</p>

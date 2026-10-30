@@ -10,10 +10,10 @@ export const WHATSAPP_NUMBER = '56900000000';
 export const LEAD_ENDPOINT = '';
 
 export const DEVELOPER = {
-  name: 'Tu Nombre',
+  name: 'Kleyner Bonalde',
   role: 'Desarrollador web freelance',
   tagline: 'Landings que convierten visitas en clientes',
-  site: 'https://tu-dominio.com',
+  site: 'https://kmbcstudio.com',
 };
 
 export const SERVICES = [
@@ -46,8 +46,8 @@ export const DEMOS = [
     name: 'Sonríe Clínica Dental',
     niche: 'Clínicas y consultorios',
     description: 'Reservas por WhatsApp, comparador antes/después y tratamientos con precios claros.',
-    image:
-      'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=900&q=75',
+    /** Id of a local photo in src/assets/photos. */
+    image: '1606811841689-23dfddce3e95',
     alt: 'Sonrisa luminosa en una consulta dental moderna',
   },
   {
@@ -55,8 +55,8 @@ export const DEMOS = [
     name: 'Masa Madre Pastelería',
     niche: 'Pastelerías y comida',
     description: 'Menú con carrito y pedido completo enviado por WhatsApp, más tortas personalizadas.',
-    image:
-      'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=75',
+    /** Id of a local photo in src/assets/photos. */
+    image: '1509440159596-0249088772ff',
     alt: 'Pan artesanal de masa madre recién horneado',
   },
   {
@@ -64,8 +64,8 @@ export const DEMOS = [
     name: 'Forja Training',
     niche: 'Entrenadores y gimnasios',
     description: 'Quiz que recomienda un plan y captura el contacto del cliente automáticamente.',
-    image:
-      'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=75',
+    /** Id of a local photo in src/assets/photos. */
+    image: '1534438327276-14e5300c3a48',
     alt: 'Persona entrenando con pesas en un gimnasio',
   },
 ] as const;

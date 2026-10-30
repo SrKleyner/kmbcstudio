@@ -1,13 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import { photo, ogImage } from '../lib/photos';
 import { WHATSAPP_NUMBER } from '../config';
 import { PLANS } from '../lib/quiz';
 import { buildWhatsAppUrl } from '../lib/whatsapp';
 
 const BRAND = 'Forja Training';
-const img = (id: string, w: number, h: number) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&h=${h}&q=75`;
-
 const contactUrl = buildWhatsAppUrl(WHATSAPP_NUMBER, `Hola ${BRAND}, quiero información sobre los planes de entrenamiento.`);
 
 const questions = [
@@ -38,7 +37,7 @@ const testimonials = [
   fontsHref="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"
   bodyClass="bg-ink text-zinc-100 font-sans antialiased selection:bg-volt selection:text-white"
   themeColor="#08080b"
-  image={img('1534438327276-14e5300c3a48', 1200, 630)}
+  image={ogImage('1534438327276-14e5300c3a48', Astro.site)}
 >
   <header class="absolute inset-x-0 top-0 z-20">
     <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-6" aria-label="Principal">
@@ -53,7 +52,7 @@ const testimonials = [
 
   <main>
     <section class="relative isolate flex min-h-[92svh] items-end overflow-hidden px-5 pb-20 pt-40">
-      <img data-parallax="40" src={img('1534438327276-14e5300c3a48', 1600, 1100)} alt="Gimnasio con mancuernas ordenadas y una persona entrenando al fondo" width="1600" height="1100" class="absolute inset-0 -z-20 h-[120%] w-full object-cover opacity-50 grayscale" />
+      <Image loading="eager" fetchpriority="high" data-parallax="40" src={photo('1534438327276-14e5300c3a48')} alt="Gimnasio con mancuernas ordenadas y una persona entrenando al fondo" width="1600" height="1100" class="absolute inset-0 -z-20 h-[120%] w-full object-cover opacity-50 grayscale" />
       <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/70 to-ink/30" aria-hidden="true"></div>
       <div class="absolute -right-40 top-20 -z-10 h-[500px] w-[500px] rounded-full bg-volt/30 blur-[140px]" aria-hidden="true"></div>
       <div class="mx-auto w-full max-w-6xl" data-hero>
@@ -167,7 +166,7 @@ const testimonials = [
           {transformations.map((t) => (
             <article class="group overflow-hidden border border-white/10 bg-ink-soft">
               <div class="relative aspect-[4/5] overflow-hidden">
-                <img src={img(t.photo, 700, 875)} alt={t.alt} width="700" height="875" loading="lazy" class="h-full w-full object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0" />
+                <Image src={photo(t.photo)} alt={t.alt} width="700" height="875" loading="lazy" class="h-full w-full object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0" />
                 <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent p-6 pt-20">
                   <p class="font-[Barlow_Condensed,sans-serif] text-5xl font-extrabold text-volt">{t.result}</p>
                   <p class="text-sm uppercase tracking-wider text-zinc-300">en {t.time}</p>

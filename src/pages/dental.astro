@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import { photo, ogImage } from '../lib/photos';
 import { WHATSAPP_NUMBER } from '../config';
 import { buildWhatsAppUrl } from '../lib/whatsapp';
 
@@ -8,9 +10,6 @@ const bookingUrl = buildWhatsAppUrl(
   WHATSAPP_NUMBER,
   `Hola ${BRAND}, quisiera agendar una evaluación. ¿Qué horarios tienen disponibles?`,
 );
-
-const unsplash = (id: string, w: number, h?: number) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}${h ? `&h=${h}` : ''}&q=75`;
 
 const treatments = [
   { name: 'Evaluación y limpieza', text: 'Diagnóstico completo, limpieza profunda y plan personalizado.', from: 35 },
@@ -22,9 +21,9 @@ const treatments = [
 ];
 
 const team = [
-  { name: 'Dra. Valentina Rojas', role: 'Directora · Estética dental', img: unsplash('1594824476967-48c8b964273f', 600, 720), alt: 'Dra. Valentina Rojas con uniforme turquesa' },
-  { name: 'Dr. Martín Salas', role: 'Implantología y cirugía', img: unsplash('1612349317150-e413f6a5b16d', 600, 720), alt: 'Dr. Martín Salas con bata blanca' },
-  { name: 'Dra. Camila Ferrer', role: 'Ortodoncia', img: unsplash('1559839734-2b71ea197ec2', 600, 720), alt: 'Dra. Camila Ferrer sonriendo en un parque' },
+  { name: 'Dra. Valentina Rojas', role: 'Directora · Estética dental', img: '1594824476967-48c8b964273f', alt: 'Dra. Valentina Rojas con uniforme turquesa' },
+  { name: 'Dr. Martín Salas', role: 'Implantología y cirugía', img: '1612349317150-e413f6a5b16d', alt: 'Dr. Martín Salas con bata blanca' },
+  { name: 'Dra. Camila Ferrer', role: 'Ortodoncia', img: '1559839734-2b71ea197ec2', alt: 'Dra. Camila Ferrer sonriendo en un parque' },
 ];
 
 const testimonials = [
@@ -50,7 +49,7 @@ const nav = [['Tratamientos', '#tratamientos'], ['Resultados', '#resultados'], [
   fontsHref="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap"
   bodyClass="bg-white text-slate-800 font-[Manrope,sans-serif] antialiased selection:bg-teal-200"
   themeColor="#f0fdfa"
-  image={unsplash('1606811841689-23dfddce3e95', 1200, 630)}
+  image={ogImage('1606811841689-23dfddce3e95', Astro.site)}
 >
   <header class="sticky top-0 z-30 border-b border-teal-900/5 bg-white/80 backdrop-blur-lg">
     <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4" aria-label="Principal">
@@ -84,7 +83,7 @@ const nav = [['Tratamientos', '#tratamientos'], ['Resultados', '#resultados'], [
         <div class="relative">
           <div class="absolute -inset-4 -z-10 rounded-[2.5rem] bg-teal-200/40 blur-2xl" aria-hidden="true"></div>
           <div class="aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl shadow-teal-900/15 sm:aspect-[5/5]">
-            <img data-parallax="24" src={unsplash('1606811841689-23dfddce3e95', 1000, 1000)} alt="Odontólogo atendiendo a una paciente en un consultorio luminoso" width="1000" height="1000" class="h-[115%] w-full object-cover" />
+            <Image loading="eager" fetchpriority="high" data-parallax="24" src={photo('1606811841689-23dfddce3e95')} alt="Odontólogo atendiendo a una paciente en un consultorio luminoso" width="1000" height="1000" class="h-[115%] w-full object-cover" />
           </div>
           <div class="absolute -bottom-5 left-4 rounded-2xl bg-white p-4 shadow-xl sm:-left-6">
             <p class="font-[Fraunces,serif] text-3xl font-semibold text-teal-700">+4.800</p>
@@ -126,9 +125,9 @@ const nav = [['Tratamientos', '#tratamientos'], ['Resultados', '#resultados'], [
         </div>
         <div data-reveal>
           <div data-compare style="--pos:50%" class="relative aspect-[4/3] w-full select-none overflow-hidden rounded-3xl shadow-2xl shadow-black/30">
-            <img src={unsplash('1609840114035-3c981b782dfe', 1000, 750)} alt="Después del tratamiento: sonrisa luminosa y alineada" width="1000" height="750" loading="lazy" draggable="false" class="absolute inset-0 h-full w-full object-cover" />
+            <Image src={photo('1609840114035-3c981b782dfe')} alt="Después del tratamiento: sonrisa luminosa y alineada" width="1000" height="750" loading="lazy" draggable="false" class="absolute inset-0 h-full w-full object-cover" />
             <div class="absolute inset-0" style="clip-path: inset(0 calc(100% - var(--pos)) 0 0)">
-              <img src={unsplash('1609840114035-3c981b782dfe', 1000, 750)} alt="Antes del tratamiento: dientes opacos y con manchas" width="1000" height="750" loading="lazy" draggable="false" class="h-full w-full object-cover [filter:sepia(0.85)_saturate(0.9)_brightness(0.82)_contrast(0.95)]" />
+              <Image src={photo('1609840114035-3c981b782dfe')} alt="Antes del tratamiento: dientes opacos y con manchas" width="1000" height="750" loading="lazy" draggable="false" class="h-full w-full object-cover [filter:sepia(0.85)_saturate(0.9)_brightness(0.82)_contrast(0.95)]" />
             </div>
             <span class="pointer-events-none absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-xs font-semibold uppercase tracking-wider">Antes</span>
             <span class="pointer-events-none absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal-900">Después</span>
@@ -154,7 +153,7 @@ const nav = [['Tratamientos', '#tratamientos'], ['Resultados', '#resultados'], [
           {team.map((m) => (
             <figure>
               <div class="aspect-[5/6] overflow-hidden rounded-3xl bg-teal-50">
-                <img src={m.img} alt={m.alt} width="600" height="720" loading="lazy" class="h-full w-full object-cover transition duration-700 hover:scale-105" />
+                <Image src={photo(m.img)} alt={m.alt} width="600" height="720" loading="lazy" class="h-full w-full object-cover transition duration-700 hover:scale-105" />
               </div>
               <figcaption class="mt-4">
                 <p class="font-[Fraunces,serif] text-xl font-medium text-teal-950">{m.name}</p>
