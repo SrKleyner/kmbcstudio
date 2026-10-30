@@ -3,8 +3,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /**
  * /servicios motion:
- *  - [data-sweep]     headline slides horizontally while its section scrolls through
- *  - [data-row]       service rows enter from alternating sides
+ *  - [data-sweep]     headline lines drift apart (scrubbed) as the section scrolls away
+ *  - [data-reveal-x]  contact headline lines settle into the gutter (scrubbed)
+ *  - [data-row-inner] service rows enter from alternating sides
  *  - [data-drift]  background numerals move vertically (shared reveal.ts also handles it on other pages)
  *  - process          pinned section: vertical scroll drives a horizontal track
  *  - [data-ticker*]   infinite marquees
@@ -15,79 +16,97 @@ export function initServicios(): void {
   const mm = gsap.matchMedia();
 
   mm.add('(prefers-reduced-motion: no-preference)', () => {
-    // Horizontal sweeps tied to scroll
-    gsap.utils.toArray<HTMLElement>('[data-sweep]').forEach((el) => {
-      const amount = Number(el.dataset.sweep) || 10;
-      gsap.fromTo(
-        el,
-        { xPercent: -amount },
-        {
-          xPercent: amount,
+    // Section headline: aligned to the gutter at rest, then the two lines drift apart (opposite
+    // directions) while the section scrolls away. Scrubbed, starts fully readable.
+    const headline = document.querySelector<HTMLElement>('#servicios-title');
+    if (headline) {
+      gsap.utils.toArray<HTMLElement>('[data-sweep]', headline).forEach((line) => {
+        const dir = Number(line.dataset.sweep) || 1;
+        gsap.to(line, {
+          xPercent: dir * 12,
           ease: 'none',
-          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
-        },
-      );
-    });
+          scrollTrigger: { trigger: headline, start: 'clamp(top 25%)', end: 'bottom top', scrub: 0.5 },
+        });
+      });
+    }
 
-    // Service rows: slide in from alternating sides, with the whole row drifting a little
+    // Contact headline: lines slide into the gutter and settle there (end state = aligned).
+    const contact = document.querySelector<HTMLElement>('#contacto-title');
+    if (contact) {
+      gsap.utils.toArray<HTMLElement>('[data-reveal-x]', contact).forEach((line) => {
+        const dir = Number(line.dataset.revealX) || 1;
+        gsap.fromTo(
+          line,
+          { xPercent: dir * 8 },
+          {
+            xPercent: 0,
+            ease: 'none',
+            scrollTrigger: { trigger: contact, start: 'top 100%', end: 'top 55%', scrub: 0.5 },
+          },
+        );
+      });
+    }
+
+    // Service rows: slide in a little from alternating sides and settle aligned.
     gsap.utils.toArray<HTMLElement>('[data-row-inner]').forEach((el) => {
       const dir = Number(el.dataset.rowInner) || 1;
       gsap.fromTo(
         el,
-        { xPercent: dir * 14, autoAlpha: 0 },
+        { xPercent: dir * 5, autoAlpha: 0 },
         {
           xPercent: 0,
           autoAlpha: 1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 92%', end: 'top 45%', scrub: 0.8 },
+          ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top 95%', end: 'top 65%', scrub: 0.5 },
         },
       );
     });
 
-    // Vertical parallax on the big numerals
+    // Subtle vertical parallax on the ghost numerals (transform only)
     gsap.utils.toArray<HTMLElement>('[data-drift]').forEach((el) => {
-      const distance = Number(el.dataset.drift) || 40;
+      const distance = Number(el.dataset.drift) || 30;
       gsap.fromTo(
         el,
         { y: -distance },
         {
           y: distance,
           ease: 'none',
-          scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: true },
+          scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: 0.5 },
         },
       );
     });
 
-    // Infinite tickers
+    // Infinite ticker
     gsap.to('[data-ticker]', { xPercent: -50, ease: 'none', duration: 28, repeat: -1 });
-    gsap.fromTo('[data-ticker-reverse]', { xPercent: -50 }, { xPercent: 0, ease: 'none', duration: 40, repeat: -1 });
 
-    // Pinned horizontal process
+    // Pinned horizontal process. One scrubbed timeline: the track travels exactly from the
+    // left gutter to the point where the last card ends at the right gutter, then holds briefly
+    // before the pin releases, so the end state is always complete and aligned.
     const section = document.querySelector<HTMLElement>('[data-process]');
     const pin = section?.querySelector<HTMLElement>('[data-process-pin]');
     const track = section?.querySelector<HTMLElement>('[data-process-track]');
     const progress = section?.querySelector<HTMLElement>('[data-progress]');
     if (section && pin && track) {
       section.classList.add('is-pinned');
-      const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
-      const tween = gsap.to(track, {
-        x: () => -distance(),
-        ease: 'none',
+      // scrollWidth leaves out the trailing padding; add it back so the last card stops at the right gutter.
+      const distance = () => Math.max(0, track.scrollWidth + parseFloat(getComputedStyle(track).paddingRight) - window.innerWidth);
+      const HOLD = 0.18; // trailing hold, relative to the travel (duration 1)
+      const tl = gsap.timeline({
+        defaults: { ease: 'none' },
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: () => `+=${distance()}`,
+          end: () => `+=${Math.round(distance() * (1 + HOLD))}`,
           pin,
-          scrub: 0.8,
+          scrub: 0.5,
           invalidateOnRefresh: true,
           anticipatePin: 1,
-          onUpdate: (self) => progress && gsap.set(progress, { scaleX: self.progress }),
         },
       });
-      // Numerals drift against the track for extra depth
-      gsap.utils.toArray<HTMLElement>('[data-step-num]').forEach((num) => {
-        gsap.fromTo(num, { xPercent: 18 }, { xPercent: -18, ease: 'none', scrollTrigger: { trigger: num.closest('article'), containerAnimation: tween, start: 'left 100%', end: 'right 0%', scrub: true } });
-      });
+      tl.to(track, { x: () => -distance(), duration: 1 }, 0);
+      tl.fromTo('[data-step-num]', { xPercent: 10 }, { xPercent: -10, duration: 1 }, 0);
+      if (progress) tl.fromTo(progress, { scaleX: 0 }, { scaleX: 1, duration: 1 }, 0);
+      tl.to({}, { duration: HOLD });
     }
 
     // Magnetic CTA
@@ -109,6 +128,8 @@ export function initServicios(): void {
     }
 
     // Fonts and images can shift layout after load: recompute trigger positions.
-    window.addEventListener('load', () => ScrollTrigger.refresh());
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener('load', refresh);
+    document.fonts?.ready.then(refresh);
   });
 }

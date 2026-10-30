@@ -138,8 +138,65 @@ body {
 }
 
 /* ---------- Servicios ---------- */
+/* One gutter and one type scale for the whole page (full-bleed, no centered column).
+   Every headline is sized so its longest line fits the viewport width minus both gutters. */
+:root {
+  --gutter: clamp(16px, 3vw, 48px);
+  --section-y: clamp(48px, 8vw, 128px);
+}
+.t-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.t-display {
+  font-size: min(20vw, 37vh); /* "SERVICIOS" / "Y PRECIOS" fill ~90% of the width */
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+}
+.t-contact {
+  font-size: min(13.8vw, 27vh); /* "DE TU NEGOCIO" fills ~90% of the width */
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+}
+@media (min-width: 768px) and (max-height: 760px) {
+  .t-contact {
+    font-size: min(13.8vw, 21vh); /* short laptop screens: keep the whole contact section inside one viewport */
+  }
+}
+.t-h2 {
+  font-size: clamp(2.2rem, min(8vw, 12vh), 9rem); /* also capped by height: it lives inside a pinned viewport */
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+.t-row {
+  font-size: clamp(1.9rem, 5vw, 5.75rem); /* service title and price share size, so their baselines align */
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+.t-step {
+  font-size: clamp(3.5rem, min(9vw, 15vh), 10rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+.t-card {
+  font-size: clamp(1.5rem, 2.6vw, 2.8rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.t-cta {
+  font-size: clamp(1.25rem, 2.2vw, 2.4rem);
+}
+.t-ghost {
+  font-size: clamp(6rem, 18vw, 20rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.06);
+}
 .process-card {
   width: 78vw;
+  min-height: clamp(240px, 40vh, 440px);
 }
 @media (min-width: 768px) {
   .process-card {
