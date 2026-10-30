@@ -36,6 +36,10 @@ The current index is a centered, narrow, plain layout that does not sell premium
 - [x] T6 `/servicios` scroll motion + typography: section headlines must be fully readable at rest (no clipped "SERVICIOS Y P"), scroll-driven horizontal motion must be scrubbed smoothly and settle at a defined aligned end state, clear section boundaries/alignment between sections, contact section without overlapping outline text clutter. Apply impeccable polish/layout/typeset/animate criteria. Route: delegated writer.
 - [x] T7 Same motion/typography audit for `/` (home) with impeccable criteria; keep the approved structure (full-bleed, name readable, slider, color shift, buttons). Route: delegated writer.
 
+- [ ] T8 Home hierarchy swap: the value proposition ("Landings que convierten visitas en clientes") becomes the large headline; "Kleyner Bonalde — Desarrollador web freelance" becomes the small line. Re-fit type sizes so the headline is fully readable above the slider at 1920/1440/1366/390. Route: delegated writer.
+- [ ] T9 Home: remove all text motion (velocity skew/x on the wordmark, pointer parallax, marquee drift); keep at most a one-time entrance fade. Route: delegated writer.
+- [ ] T10 Home wheel/trackpad: replace the per-event position nudging + snap with an accumulate-threshold-and-step model (one slide per gesture, locked while animating) so mouse wheel and trackpad move smoothly between cards; pure helper in src/lib/slider.ts under TDD. Route: delegated writer.
+
 ## Acceptance criteria
 - `pnpm test` and `pnpm build` pass; no horizontal page scroll at 390px; images load on first visit; slider loops infinitely in both directions; reduced-motion disables animations.
 
