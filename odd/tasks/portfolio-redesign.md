@@ -44,6 +44,7 @@ The current index is a centered, narrow, plain layout that does not sell premium
 - T3 (1b00e32): /servicios with sweeping headline, editorial price rows, pinned horizontal process, tickers, contact CTA.
 - T4: Firefox screenshots 1440x900 and 390x844 of / and /servicios checked visually; scrollWidth <= innerWidth at 390 for /, /servicios and demos (378-390 vs 390).
 - Fix (9558c9a, inline): "Escríbeme" and "Servicios" stayed invisible. Root cause reproduced in headless Chromium: Tailwind `transition` (includes opacity/transform) on GSAP `[data-fade]` links froze the autoAlpha fade-in at opacity 0. Limited to transition-[scale,background-color,color]. Verified: no opacity-0 interactive elements on /, /servicios, demos; test 35/35, build OK.
+- Fix (inline): slider track now starts below the wordmark; card size derived from free height. Measured in Chromium: card top > wordmark bottom at 1920x958, 1366x657, 390x844; no horizontal overflow. WHATSAPP_NUMBER set to the owner number.
 - Not verified: real drag/wheel/inertia feel, expanding transition in a real browser, pinned scroll behavior (no scripted browser available).
 
 ## Next step
