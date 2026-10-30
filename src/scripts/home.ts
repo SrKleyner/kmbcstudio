@@ -6,7 +6,7 @@ type Palette = { bg: string; fg: string };
 /**
  * Home experience: infinite looping slider with wheel / drag / swipe / keys / buttons,
  * background color tween per active demo, expanding transition into the demo page,
- * and constant ambient motion (marquee, floating cards, wordmark parallax).
+ * and ambient card float. Text never moves except for a one-time entrance.
  */
 export function initHome(): void {
   const root = document.querySelector<HTMLElement>('[data-home]');
@@ -19,9 +19,6 @@ export function initHome(): void {
   const total = slides.length;
   const palettes: Palette[] = JSON.parse(paletteTag.textContent || '[]');
   const counter = root.querySelector<HTMLElement>('[data-current]');
-  const marquee = root.querySelector<HTMLElement>('[data-marquee]');
-  const wordLeft = root.querySelector<HTMLElement>('[data-word="left"]');
-  const wordRight = root.querySelector<HTMLElement>('[data-word="right"]');
   const reduceQuery = matchMedia('(prefers-reduced-motion: reduce)');
   const reduced = () => reduceQuery.matches;
 
@@ -247,7 +244,7 @@ export function initHome(): void {
     });
   }
 
-  // --- Ambient motion + entrance (skipped for reduced motion) ------------------------
+  // --- Card float + one-time entrance (skipped for reduced motion) ------------------------
   measure();
   setActive(0);
   render();
@@ -260,7 +257,7 @@ export function initHome(): void {
   const mm = gsap.matchMedia();
   mm.add('(prefers-reduced-motion: no-preference)', () => {
     // Entrance
-    gsap.from('[data-word]', { yPercent: 115, duration: 1.2, ease: 'power4.out', stagger: 0.12 });
+    gsap.from('[data-word]', { autoAlpha: 0, y: 24, duration: 1, ease: 'power4.out', stagger: 0.1, clearProps: 'all' });
     gsap.from('[data-fade]', { autoAlpha: 0, y: 14, duration: 0.8, ease: 'power2.out', delay: 0.6, stagger: 0.08 });
     intro.x = window.innerWidth * 0.9;
     render();
@@ -268,35 +265,5 @@ export function initHome(): void {
 
     // Cards float vertically, out of phase
     gsap.to('[data-float]', { y: -12, duration: 2.6, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: { each: 0.35, from: 'start' } });
-
-    // Marquee drifts left, speeds up and reverses with slider velocity; wordmark halves slide apart.
-    const wrap = gsap.utils.wrap(-50, 0);
-    let mx = 0;
-    let last = state.pos;
-    let smooth = 0;
-    const tick = () => {
-      const v = state.pos - last;
-      last = state.pos;
-      smooth += (v - smooth) * 0.12;
-      mx += -0.035 + smooth * -9;
-      if (marquee) gsap.set(marquee, { xPercent: wrap(mx) });
-      if (wordLeft) gsap.set(wordLeft, { x: -smooth * 520, skewX: smooth * -60 });
-      if (wordRight) gsap.set(wordRight, { x: smooth * 520, skewX: smooth * -60 });
-    };
-    gsap.ticker.add(tick);
-
-    // Pointer parallax on the wordmark (vertical + horizontal)
-    const onMove = (e: PointerEvent) => {
-      const nx = e.clientX / window.innerWidth - 0.5;
-      const ny = e.clientY / window.innerHeight - 0.5;
-      gsap.to('.home-word', { x: nx * -10, y: ny * -8, duration: 1.2, ease: 'power3.out', overwrite: 'auto' });
-      gsap.to('[data-marquee]', { y: ny * 30, duration: 1.6, ease: 'power3.out', overwrite: 'auto' });
-    };
-    window.addEventListener('pointermove', onMove);
-
-    return () => {
-      gsap.ticker.remove(tick);
-      window.removeEventListener('pointermove', onMove);
-    };
   });
 }
