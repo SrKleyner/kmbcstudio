@@ -76,8 +76,9 @@ export function initServicios(): void {
       );
     });
 
-    // Infinite ticker
-    gsap.to('[data-ticker]', { xPercent: -50, ease: 'none', duration: 28, repeat: -1 });
+    // Infinite ticker: the track holds 4 identical copies, so shifting by one copy (-25%) loops
+    // seamlessly while the remaining copies always cover the viewport on wide screens.
+    gsap.to('[data-ticker]', { xPercent: -25, ease: 'none', duration: 28, repeat: -1 });
 
     // Pinned horizontal process. One scrubbed timeline: the track travels exactly from the
     // left gutter to the point where the last card ends at the right gutter, then holds briefly
@@ -104,7 +105,9 @@ export function initServicios(): void {
         },
       });
       tl.to(track, { x: () => -distance(), duration: 1 }, 0);
-      tl.fromTo('[data-step-num]', { xPercent: 10 }, { xPercent: -10, duration: 1 }, 0);
+      // Numerals drift a few px left mid-travel and settle back: aligned with the card text at the
+      // start and end of the pin, and always inside the card padding.
+      tl.to('[data-step-num]', { keyframes: [{ x: -12, ease: 'sine.out' }, { x: 0, ease: 'sine.in' }], duration: 1 }, 0);
       if (progress) tl.fromTo(progress, { scaleX: 0 }, { scaleX: 1, duration: 1 }, 0);
       tl.to({}, { duration: HOLD });
     }

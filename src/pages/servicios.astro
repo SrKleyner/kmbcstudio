@@ -64,7 +64,7 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
     <!-- Ticker -->
     <div class="overflow-hidden border-y border-white/15 bg-lime-300 py-4 text-black" aria-hidden="true">
       <div class="flex w-max whitespace-nowrap" data-ticker>
-        {[0, 1].map(() => (
+        {[0, 1, 2, 3].map(() => (
           <span class="font-display pr-8 text-2xl font-bold uppercase tracking-[-0.02em] sm:text-4xl">
             Landings · WhatsApp · Reservas · Pedidos · Mantenimiento · Resultados ·&nbsp;
           </span>
@@ -86,7 +86,7 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
         <div class="process-track flex gap-[clamp(12px,2vw,32px)] px-(--gutter)" data-process-track>
           {steps.map((step) => (
             <article class="process-card relative flex shrink-0 flex-col justify-between overflow-hidden rounded-[clamp(16px,2vw,32px)] border border-white/15 bg-white/[0.04] p-[clamp(20px,2.4vw,40px)]">
-              <span class="t-step font-display font-bold text-lime-300" data-step-num>{step.n}</span>
+              <span class="t-step self-start font-display font-bold text-lime-300" data-step-num>{step.n}</span>
               <div>
                 <h3 class="t-card font-display font-bold uppercase">{step.title}</h3>
                 <p class="mt-3 max-w-md text-base leading-relaxed text-white/70">{step.text}</p>
