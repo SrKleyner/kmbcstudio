@@ -1,5 +1,5 @@
 import { gsap } from 'gsap';
-import { paletteFor, stepDirection, wrapIndex } from '../lib/slider';
+import { accumulateWheel, initialWheelState, normalizeWheelDelta, paletteFor, stepDirection, wrapIndex } from '../lib/slider';
 
 type Palette = { bg: string; fg: string };
 
@@ -82,27 +82,26 @@ export function initHome(): void {
     gsap.to(state, { pos: target, duration, ease, onUpdate: render });
   };
 
-  const go = (delta: number) => moveTo(Math.round(state.pos) + delta, 0.95, 'power3.inOut');
-  const snap = () => moveTo(Math.round(state.pos), 0.6);
+  const GO_DURATION = 0.95;
+  const go = (delta: number) => moveTo(Math.round(state.pos) + delta, GO_DURATION, 'power3.inOut');
 
-  // --- Wheel / trackpad -------------------------------------------------------------
-  let wheelTimer = 0;
+  // --- Wheel / trackpad: accumulate -> threshold -> one slide per gesture ---------------
+  // The slide tween lasts GO_DURATION; input stays locked for it plus a short cooldown.
+  const wheelOpts = { threshold: 50, idleMs: 200, lockMs: GO_DURATION * 1000 + 200, cooldownMs: 200 };
+  let wheel = initialWheelState();
   stage.addEventListener(
     'wheel',
     (e) => {
       e.preventDefault();
-      if (opening) return;
-      let delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (e.deltaMode === 1) delta *= 16;
-      delta = Math.max(-120, Math.min(120, delta));
-      gsap.killTweensOf(state);
-      state.pos += (delta / step) * 0.9;
-      render();
-      clearTimeout(wheelTimer);
-      wheelTimer = window.setTimeout(snap, 140);
+      if (opening || dragging) return;
+      const delta = normalizeWheelDelta(e.deltaX, e.deltaY, e.deltaMode, window.innerHeight);
+      const result = accumulateWheel(wheel, delta, performance.now(), wheelOpts);
+      wheel = result.state;
+      if (result.step !== 0) go(result.step);
     },
     { passive: false },
   );
+
 
   // --- Pointer drag / touch swipe with inertia -------------------------------------
   let dragging = false;
